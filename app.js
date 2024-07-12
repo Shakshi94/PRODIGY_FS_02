@@ -35,6 +35,12 @@ app.get('/dashboard',async (req,res)=>{
     
 });
 
+// manage employee 
+
+app.get('/members',async (req,res)=>{
+    let employees = await Employee.find({});
+    res.render('./employeeDetails/members.ejs',{employees});
+});
 
 app.listen(port,()=>{
     console.log(`server is listening at port ${port}`);

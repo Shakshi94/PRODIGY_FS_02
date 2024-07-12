@@ -1,0 +1,31 @@
+<% layout('layouts/boilerplate') -%>
+<div class="row offset-5 mt-3 mb-3">
+    <h3>Employees</h3>
+</div>
+<table class="table table-bordered  table-hover">
+    <thead>
+    <tr class="heading">
+        <th scope="col" >Name</th>
+        <th scope="col">Position</th>
+        <th scope="col">Department</th>
+         <th scope="col">Phone Number</th>
+        <th scope="col">Salary</th>
+        <th scope="col">View</th>
+        
+    </tr>
+    </thead>
+    <tbody>
+    <% for(emp of employees){%>
+       <tr>
+        <td ><%= emp.name %></td>
+         <td ><%= emp.position %></td>
+         <td><%= emp.department %></td>
+          <td><%= emp.phone %></td>
+         <td><%= emp.salary %></td>
+         <td><form action="">
+            <button type="button" class="btn"><i class="fa-regular fa-eye" style="color: #B197FC;"></i></button>
+         </form></td>
+       </tr>
+   <% } %>
+   </tbody>
+</table>

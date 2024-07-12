@@ -13,6 +13,7 @@ async function main() {
 
 
 const initDB = async()=>{
+    await Employee.deleteMany();
     await Employee.insertMany(data.data);
     console.log("data is intailized in DB");
 }

@@ -6,6 +6,10 @@ const employeeSchema =new mongoose.Schema({
         type:String,
         required:true,
     },
+    imageUrl:{
+        type:String,
+        required:true,
+    },
     age:{
         type:Number,
         required:true,
