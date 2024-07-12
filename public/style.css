@@ -1,0 +1,27 @@
+body {
+    font-family: "Plus Jakarta Sans", sans-serif !important;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    overflow-x: hidden;
+}
+
+.container {
+    flex: 1;
+}
+
+.navbar {
+    height: 5rem;
+    border-bottom: 1px solid grey;
+    background-color: white;
+}
+
+.nav-link {
+    font-size: small;
+    color: black !important;
+} 
+
+ .nav-link:hover {
+    background-color: rgb(206, 206, 206, 0.3);
+    border-radius: 2rem;
+}  

@@ -4,7 +4,8 @@ const app = express();
 const port = process.env.PORT;
 const mongoose = require('mongoose');
 const ejs = require('ejs')
-const ejsMate = require('ejs-mate');
+const engine = require('ejs-mate');
+const path = require('path');
 
 main()
     .then(console.log('database connection created successfully!'))
@@ -15,11 +16,16 @@ async function main(){
     
 }
 
+app.engine('ejs',engine)
+;
 app.use(express.urlencoded({extended:true}));
 app.use(express.static('public'));
 app.set('view engine','ejs');
+app.set('views', path.join(__dirname, 'views'));
 
-
+app.get('/dashboard',(req,res)=>{
+    res.render('./employeeDetails/dashboard.ejs');
+})
 app.listen(port,()=>{
     console.log(`server is listening at port ${port}`);
 })
