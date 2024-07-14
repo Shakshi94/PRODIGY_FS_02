@@ -8,16 +8,12 @@
      <div class="member-details offset-1 mt-1 mb-1"><span class="highlights">Department:</span><%=member.department%></div>
      <div  class="member-details offset-1 mt-1 mb-1"><span class="highlights">Age:</span> <%=member.age%></div>
      <div class="offset-1 mt-1 mb-1"><span class="highlights">Hiredate: </span class="highlights"><%=member.hireDate%></div>
-     <div class="offset-1 mt-1 mb-1"><span class="highlights">Salary: </span><%=member.salary%></div>
+     <div class="offset-1 mt-1 mb-1"><span class="highlights">Salary: </span>&#8377; &nbsp;<%= Number(member.salary).toLocaleString("en-IN")%> </div>
      <div class="offset-1 mt-1 mb-1"><i class="fa-solid fa-at" style="color:  #6610f2;"></i>&nbsp;&nbsp;<%=member.email%></div>
      <div class="offset-1 mt-1 mb-1"><i class="fa-solid fa-phone" style="color:  #6610f2;"></i>&nbsp;&nbsp;<%=member.phone%></div>
      <div class="btns mt-1">
-      <form action="">
-        <a href=""><button class="btn btn-edit">Edit</button></a>
-      </form>
-        <form action="">
-        <a href=""><button class="btn btn-delete">Delete</button></a>
-      </form>
+        <a href="/members/<%= member.id%>/edit"><button class="btn btn-edit">Edit</button></a>
+        <a href="/members/<%= member.id%>/delete"><button class="btn btn-delete">Delete</button></a>
      </div>
   </div>
 </div>

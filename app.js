@@ -9,6 +9,7 @@ const path = require('path');
 const Employee = require('./models/employee')
 const wrapAsync = require('./utils/wrapAsync');
 const ExpressError = require('./utils/ExpressError');
+const methodOverride = require('method-override');
 
 main()
     .then(console.log('database connection created successfully!'))
@@ -25,6 +26,7 @@ app.use(express.urlencoded({extended:true}));
 app.use(express.static('public'));
 app.set('view engine','ejs');
 app.set('views', path.join(__dirname, 'views'));
+app.use(methodOverride('_method'));
 
 app.get('/dashboard',wrapAsync(async (req,res)=>{
     const count = await Employee.countDocuments();
@@ -46,7 +48,7 @@ app.get('/members/:id',wrapAsync(async (req,res)=>{
     
 }));
 
-// create new listing 
+// create new employee
 app.get('/newEmployee',(req,res)=>{
   res.render('./employeeDetails/newmember.ejs');
 });
@@ -56,6 +58,21 @@ app.post('/newEmployee',wrapAsync(async(req,res)=>{
      
      await newEmployee.save();
      res.redirect('/members');
+}));
+
+// edit employee
+
+app.get('/members/:id/edit',wrapAsync(async(req,res)=>{
+    let {id} = req.params;
+    const employee = await Employee.findById(id);
+    res.render('./employeeDetails/edit.ejs',{employee});
+}));
+
+app.put('/members/:id',wrapAsync(async(req,res)=>{
+    let {id} = req.params;
+    let employee = await Employee.findByIdAndUpdate(id,{...req.body.employees});
+    await employee.save();
+    res.redirect(`/members/${id}`);
 }));
 
 app.all('*',(req,res,next)=>{

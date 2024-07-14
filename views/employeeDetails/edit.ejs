@@ -1,0 +1,71 @@
+<% layout('layouts/boilerplate') -%>
+
+ <div class="row">
+        <div class="col-8 offset-2">
+            <br>
+            <h3 style="text-align: center;">Edit Employee</h3>
+            <form action="/members/<%=employee.id%>?_method=PUT" method="POST" class=" needs-validation mt-3 mb-3 newEmployeeForm" novalidate>
+
+                <div class="mb-3">
+                    <label for="name" class="form-label">Name</label>
+                    <input type="text" class="form-control" name="employees[name]" value="<%=employee.name%>" placeholder="Enter name" id="name" required>
+                    <div class="invalid-feedback">please enter name</div>
+                </div>
+                
+                  <div class="row">
+                    <div class="mb-3 col-md-4">
+                        <label for="email" class="form-label">Email</label>
+                        <input id="email" type="email" name="employees[email]" value="<%=employee.email%>" placeholder="xyz@gmail.com" class="form-control" required>
+                        <div class="invalid-feedback">email should be valid!</div>
+                    </div>
+
+                    <div class="mb-3 col-md-8">
+                        <label for="phone" class="form-label">Phone</label>
+                        <input id="phone" type="string" name="employees[phone]" value="<%=employee.phone%>" placeholder="enter phone number" class="form-control" required>
+                        <div class="invalid-feedback">phone number should be valid!</div>
+                    </div>
+                </div>
+                <div class="mb-3">
+                    <label for="position" class="form-label">Position</label>
+                    <input class="form-control" id="position" rows="3" placeholder="Enter the position" name="employees[position]" value="<%=employee.position%>" required>
+                    <div class="invalid-feedback">please write the position of new employee</div>
+                </div>
+
+                <div class="mb-3">
+                    <label for="department" class="form-label">Department</label>
+                    <input class="form-control" id="department" rows="3" placeholder="Enter the department" name="employees[department]" value="<%=employee.department%>" required>
+                    <div class="invalid-feedback">please write the postion of new employee</div>
+                </div>
+
+
+                <div class="mb-3">
+                    <label for="imageUrl" class="form-label">Upload  Image</label>
+                    <input class="form-control" id="image" type="string" name="employees[imageUrl]" value="<%=employee.imageUrl%>" placeholder="image should be in the form of url" required>
+                </div>
+
+                <div class="row">
+                    <div class="mb-3 col-md-4">
+                        <label for="age" class="form-label">Age</label>
+                        <input id="age" type="string" name="employees[age]" placeholder="Enter the age" value="<%=employee.age%>" class="form-control" required>
+                        <div class="invalid-feedback">age should be valid!</div>
+                    </div>
+
+                    <div class="mb-3 col-md-8">
+                        <label for="salary" class="form-label">Salary</label>
+                        <input id="salary" type="string" name="employees[salary]" placeholder="enter salary" value="<%=employee.salary%>" class="form-control" required>
+                        <div class="invalid-feedback">salary name should be valid!</div>
+                    </div>
+                     <div class="mb-3">
+                        <label for="hiredate" class="form-label">Hire Date</label>
+                        <input id="hiredate" type="string" name="employees[hireDate]" value="<%=employee.hireDate%>" placeholder="yy-mm-dd" class="form-control" required>
+                        <div class="invalid-feedback">salary name should be valid!</div>
+                    </div>
+                </div>
+                <div class="col text-center">
+                <button class="btn newbtn ms-auto" type="submit">Submit</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+<script src="./js/script.js"></script>    
