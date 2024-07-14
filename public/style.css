@@ -62,7 +62,7 @@ hr{
     font-weight: bold;
 }
 
-.btn-edit,.btn-delete,.newbtn{
+.btn-edit,.btn-delete{
    color: white !important;
    background-color: #6610f2 !important;
 }
@@ -73,16 +73,18 @@ hr{
     align-items: center;
 }
 
-label{
+.form-label{
     font-weight: bold;
 }
 
-form{
+.newEmployeeForm{
     border: 2px solid #6610f2;
     padding: 1rem;
     border-radius: 1rem;
 }
 
 .newbtn{
+    color: white !important;
+    background-color: #6610f2 !important;
     width: 100%;
 }

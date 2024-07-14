@@ -26,40 +26,37 @@ app.use(express.static('public'));
 app.set('view engine','ejs');
 app.set('views', path.join(__dirname, 'views'));
 
-app.get('/dashboard',async (req,res)=>{
- try {
+app.get('/dashboard',wrapAsync(async (req,res)=>{
     const count = await Employee.countDocuments();
     res.render('./employeeDetails/dashboard.ejs',{ employeeCount: count });
-  } catch (error) {
-    console.error('Error counting documents:', error);
-    res.status(500).send('Internal Server Error');
-  }
-    
-});
+}));
 
 // manage employee 
 
-app.get('/members',async (req,res)=>{
+app.get('/members',wrapAsync(async (req,res)=>{
     let employees = await Employee.find({});
     res.render('./employeeDetails/members.ejs',{employees});
-});
+}));
 
 // show employee 
-app.get('/members/:id',async (req,res)=>{
+app.get('/members/:id',wrapAsync(async (req,res)=>{
     let {id} = req.params;
     let member= await Employee.findById(id);
     res.render('./employeeDetails/showmember.ejs',{member})
     
-});
+}));
 
 // create new listing 
 app.get('/newEmployee',(req,res)=>{
   res.render('./employeeDetails/newmember.ejs');
 });
 
-app.post('/newEmployee',async(req,res)=>{
-  res.send('working');
-})
+app.post('/newEmployee',wrapAsync(async(req,res)=>{
+     const newEmployee = new Employee(req.body.employees);
+     
+     await newEmployee.save();
+     res.redirect('/members');
+}));
 
 app.all('*',(req,res,next)=>{
   next(new ExpressError(404,'Page Not Found'));
@@ -67,7 +64,7 @@ app.all('*',(req,res,next)=>{
 
 app.use((err,req,res,next)=>{
   let {statusCode=500,message='something went wrong'} = err;
-  res.status(statusCode).send(message);
+  res.status(statusCode).render('Error.ejs',{err});
 })
 app.listen(port,()=>{
     console.log(`server is listening at port ${port}`);

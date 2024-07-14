@@ -11,7 +11,7 @@ const employeeSchema =new mongoose.Schema({
         required:true,
     },
     age:{
-        type:Number,
+        type:String,
         required:true,
     },
     position:{
@@ -27,7 +27,7 @@ const employeeSchema =new mongoose.Schema({
         required:true,
     },
     phone:{
-        type:Number,
+        type:String,
         required:true,
         min:10,
     },
@@ -36,7 +36,7 @@ const employeeSchema =new mongoose.Schema({
         required:true,
     },
     salary:{
-        type:Number,
+        type:String,
         required:true,
     }
 });

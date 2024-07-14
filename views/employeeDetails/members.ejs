@@ -21,10 +21,10 @@
          <td ><%= emp.position %></td>
          <td><%= emp.department %></td>
           <td><%= emp.phone %></td>
-         <td><%= emp.salary %></td>
-         <td><form action="">
-            <a href="/members/<%= emp.id%>"><button type="button" class="btn"><i class="fa-regular fa-eye" style="color: #B197FC;"></i></button></a>
-         </form></td>
+         <td>&#8377; &nbsp;<%= Number(emp.salary).toLocaleString("en-IN") %></td>
+         <td>
+            <a href="/members/<%= emp.id%>"><button  class="btn"><i class="fa-regular fa-eye" style="color: #B197FC;"></i></button></a>
+         </td>
        </tr>
    <% } %>
    </tbody>
