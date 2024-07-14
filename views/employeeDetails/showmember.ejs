@@ -13,7 +13,9 @@
      <div class="offset-1 mt-1 mb-1"><i class="fa-solid fa-phone" style="color:  #6610f2;"></i>&nbsp;&nbsp;<%=member.phone%></div>
      <div class="btns mt-1">
         <a href="/members/<%= member.id%>/edit"><button class="btn btn-edit">Edit</button></a>
-        <a href="/members/<%= member.id%>/delete"><button class="btn btn-delete">Delete</button></a>
+        <form action="/members/<%= member.id%>?_method=DELETE"  method="POST">
+        <button type="submit" class="btn btn-delete">Delete</button>
+        </form>
      </div>
   </div>
 </div>

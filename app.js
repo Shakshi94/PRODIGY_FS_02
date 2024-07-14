@@ -75,6 +75,12 @@ app.put('/members/:id',wrapAsync(async(req,res)=>{
     res.redirect(`/members/${id}`);
 }));
 
+app.delete('/members/:id',wrapAsync(async (req,res)=>{
+        let {id} = req.params;
+        await Employee.findByIdAndDelete(id);
+        res.redirect('/members');
+}));
+
 app.all('*',(req,res,next)=>{
   next(new ExpressError(404,'Page Not Found'));
 })
