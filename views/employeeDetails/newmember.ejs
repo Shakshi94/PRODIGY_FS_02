@@ -1,0 +1,61 @@
+<% layout('layouts/boilerplate') -%>
+
+ <div class="row">
+        <div class="col-8 offset-2">
+            <br>
+            <h3 style="text-align: center;">New Employee</h3>
+            <form action="/newEmployee" method="POST" class="s-form needs-validation" novalidate>
+
+                <div class="mb-3">
+                    <label for="name" class="form-label">Name</label>
+                    <input type="text" class="form-control" name="name" placeholder="Enter name" id="name" required>
+                    <div class="invalid-feedback">please enter name</div>
+                </div>
+
+                <div class="mb-3">
+                    <label for="position" class="form-label">Position</label>
+                    <input class="form-control" id="position" rows="3" placeholder="Enter the position" name="position" required>
+                    <div class="invalid-feedback">please write the postion of new employee</div>
+                </div>
+
+                <div class="mb-3">
+                    <label for="department" class="form-label">Department</label>
+                    <input class="form-control" id="department" rows="3" placeholder="Enter the department" name="department" required>
+                    <div class="invalid-feedback">please write the postion of new employee</div>
+                </div>
+
+
+                <div class="mb-3">
+                    <label for="image" class="form-label">Upload  Image</label>
+                    <input class="form-control" id="image" type="text" name="image" placeholder="image should be in the form of url" required>
+                </div>
+
+                <div class="row">
+                    <div class="mb-3 col-md-4">
+                        <label for="age" class="form-label">Age</label>
+                        <input id="age" type="number" name="age" placeholder="Enter the age" class="form-control" required>
+                        <div class="invalid-feedback">age should be valid!</div>
+                    </div>
+
+                    <div class="mb-3 col-md-8">
+                        <label for="salary" class="form-label">Salary</label>
+                        <input id="salary" type="number" name="salary" placeholder="enter salary" class="form-control" required>
+                        <div class="invalid-feedback">salary name should be valid!</div>
+                    </div>
+                </div>
+
+                <div class="mb-3">
+                    <label for="f-country" class="form-label">Country</label>
+                    <input id="f-country" type="number" name="listing[country]" placeholder="India" class="form-control" required>
+                    <div class="invalid-feedback">country name should be valid!</div>
+                </div>
+
+                 <div class="mb-3">
+                    <label for="f-category" class="form-label">Category</label>
+                    <input id="f-category" type="text" name="listing[category]" placeholder="mountains or beaches" class="form-control" required>
+                    <div class="invalid-feedback">category name should be valid!</div>
+                </div>
+                <button class="btn n-btn mt-3">Add</button>
+            </form>
+        </div>
+    </div>

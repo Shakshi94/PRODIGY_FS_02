@@ -7,6 +7,8 @@ const ejs = require('ejs')
 const engine = require('ejs-mate');
 const path = require('path');
 const Employee = require('./models/employee')
+const wrapAsync = require('./utils/wrapAsync');
+const ExpressError = require('./utils/ExpressError');
 
 main()
     .then(console.log('database connection created successfully!'))
@@ -42,6 +44,27 @@ app.get('/members',async (req,res)=>{
     res.render('./employeeDetails/members.ejs',{employees});
 });
 
+// show employee 
+app.get('/members/:id',async (req,res)=>{
+    let {id} = req.params;
+    let member= await Employee.findById(id);
+    res.render('./employeeDetails/showmember.ejs',{member})
+    
+});
+
+// create new listing 
+app.get('/newEmployee',(req,res)=>{
+  res.render('./employeeDetails/newmember.ejs');
+});
+
+app.all('*',(req,res,next)=>{
+  next(new ExpressError(404,'Page Not Found'));
+})
+
+app.use((err,req,res,next)=>{
+  let {statusCode=500,message='something went wrong'} = err;
+  res.status(statusCode).send(message);
+})
 app.listen(port,()=>{
     console.log(`server is listening at port ${port}`);
 })

@@ -23,7 +23,7 @@
           <td><%= emp.phone %></td>
          <td><%= emp.salary %></td>
          <td><form action="">
-            <button type="button" class="btn"><i class="fa-regular fa-eye" style="color: #B197FC;"></i></button>
+            <a href="/members/<%= emp.id%>"><button type="button" class="btn"><i class="fa-regular fa-eye" style="color: #B197FC;"></i></button></a>
          </form></td>
        </tr>
    <% } %>

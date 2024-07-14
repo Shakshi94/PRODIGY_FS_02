@@ -1,0 +1,23 @@
+<% layout('layouts/boilerplate') -%>
+<div class="card mt-3 mb-3 offset-4 " style="width: 23rem;">
+  <div class=" mt-2 mb-1 offset-5"><img src="<%=member.imageUrl%>" class="employeeImage"></div>
+  <div class="card-body ">
+    <h5 class="card-title offset-4"><%=member.name%></h5>
+    <h6 class="card-subtitle mb-2 text-muted offset-4"><%=member.position%></h6>
+    <hr>
+     <div class="member-details offset-1 mt-1 mb-1"><span class="highlights">Department:</span><%=member.department%></div>
+     <div  class="member-details offset-1 mt-1 mb-1"><span class="highlights">Age:</span> <%=member.age%></div>
+     <div class="offset-1 mt-1 mb-1"><span class="highlights">Hiredate: </span class="highlights"><%=member.hireDate%></div>
+     <div class="offset-1 mt-1 mb-1"><span class="highlights">Salary: </span><%=member.salary%></div>
+     <div class="offset-1 mt-1 mb-1"><i class="fa-solid fa-at" style="color:  #6610f2;"></i>&nbsp;&nbsp;<%=member.email%></div>
+     <div class="offset-1 mt-1 mb-1"><i class="fa-solid fa-phone" style="color:  #6610f2;"></i>&nbsp;&nbsp;<%=member.phone%></div>
+     <div class="btns mt-1">
+      <form action="">
+        <a href=""><button class="btn btn-edit">Edit</button></a>
+      </form>
+        <form action="">
+        <a href=""><button class="btn btn-delete">Delete</button></a>
+      </form>
+     </div>
+  </div>
+</div>
