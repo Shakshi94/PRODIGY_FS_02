@@ -4,58 +4,68 @@
         <div class="col-8 offset-2">
             <br>
             <h3 style="text-align: center;">New Employee</h3>
-            <form action="/newEmployee" method="POST" class="s-form needs-validation" novalidate>
+            <form action="/newEmployee" method="POST" class=" needs-validation mt-3 mb-3" novalidate>
 
                 <div class="mb-3">
                     <label for="name" class="form-label">Name</label>
-                    <input type="text" class="form-control" name="name" placeholder="Enter name" id="name" required>
+                    <input type="text" class="form-control" name="employees[name]" placeholder="Enter name" id="name" required>
                     <div class="invalid-feedback">please enter name</div>
                 </div>
+                
+                  <div class="row">
+                    <div class="mb-3 col-md-4">
+                        <label for="email" class="form-label">Email</label>
+                        <input id="email" type="email" name="employees[email]" placeholder="xyz@gmail.com" class="form-control" required>
+                        <div class="invalid-feedback">email should be valid!</div>
+                    </div>
 
+                    <div class="mb-3 col-md-8">
+                        <label for="phone" class="form-label">Phone</label>
+                        <input id="phone" type="number" name="employees[phone]" placeholder="enter phone number" class="form-control" required>
+                        <div class="invalid-feedback">phone number should be valid!</div>
+                    </div>
+                </div>
                 <div class="mb-3">
                     <label for="position" class="form-label">Position</label>
-                    <input class="form-control" id="position" rows="3" placeholder="Enter the position" name="position" required>
+                    <input class="form-control" id="position" rows="3" placeholder="Enter the position" name="employees[position]" required>
                     <div class="invalid-feedback">please write the postion of new employee</div>
                 </div>
 
                 <div class="mb-3">
                     <label for="department" class="form-label">Department</label>
-                    <input class="form-control" id="department" rows="3" placeholder="Enter the department" name="department" required>
+                    <input class="form-control" id="department" rows="3" placeholder="Enter the department" name="employees[department]" required>
                     <div class="invalid-feedback">please write the postion of new employee</div>
                 </div>
 
 
                 <div class="mb-3">
                     <label for="image" class="form-label">Upload  Image</label>
-                    <input class="form-control" id="image" type="text" name="image" placeholder="image should be in the form of url" required>
+                    <input class="form-control" id="image" type="text" name="employees[image]" placeholder="image should be in the form of url" required>
                 </div>
 
                 <div class="row">
                     <div class="mb-3 col-md-4">
                         <label for="age" class="form-label">Age</label>
-                        <input id="age" type="number" name="age" placeholder="Enter the age" class="form-control" required>
+                        <input id="age" type="number" name="employees[age]" placeholder="Enter the age" class="form-control" required>
                         <div class="invalid-feedback">age should be valid!</div>
                     </div>
 
                     <div class="mb-3 col-md-8">
                         <label for="salary" class="form-label">Salary</label>
-                        <input id="salary" type="number" name="salary" placeholder="enter salary" class="form-control" required>
+                        <input id="salary" type="number" name="employees[salary]" placeholder="enter salary" class="form-control" required>
+                        <div class="invalid-feedback">salary name should be valid!</div>
+                    </div>
+                     <div class="mb-3">
+                        <label for="hiredate" class="form-label">Hire Date</label>
+                        <input id="hiredate" type="text" name="employees[hiredate]" placeholder="yy-mm-dd" class="form-control" required>
                         <div class="invalid-feedback">salary name should be valid!</div>
                     </div>
                 </div>
-
-                <div class="mb-3">
-                    <label for="f-country" class="form-label">Country</label>
-                    <input id="f-country" type="number" name="listing[country]" placeholder="India" class="form-control" required>
-                    <div class="invalid-feedback">country name should be valid!</div>
+                <div class="col text-center">
+                <button class="btn newbtn ms-auto">Add</button>
                 </div>
-
-                 <div class="mb-3">
-                    <label for="f-category" class="form-label">Category</label>
-                    <input id="f-category" type="text" name="listing[category]" placeholder="mountains or beaches" class="form-control" required>
-                    <div class="invalid-feedback">category name should be valid!</div>
-                </div>
-                <button class="btn n-btn mt-3">Add</button>
             </form>
         </div>
     </div>
+
+<script src="./js/script.js"></script>    

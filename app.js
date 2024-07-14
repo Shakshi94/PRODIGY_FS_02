@@ -57,6 +57,10 @@ app.get('/newEmployee',(req,res)=>{
   res.render('./employeeDetails/newmember.ejs');
 });
 
+app.post('/newEmployee',async(req,res)=>{
+  res.send('working');
+})
+
 app.all('*',(req,res,next)=>{
   next(new ExpressError(404,'Page Not Found'));
 })

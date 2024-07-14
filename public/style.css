@@ -62,7 +62,7 @@ hr{
     font-weight: bold;
 }
 
-.btn-edit,.btn-delete{
+.btn-edit,.btn-delete,.newbtn{
    color: white !important;
    background-color: #6610f2 !important;
 }
@@ -71,4 +71,18 @@ hr{
     display: flex;
     justify-content: space-around;
     align-items: center;
+}
+
+label{
+    font-weight: bold;
+}
+
+form{
+    border: 2px solid #6610f2;
+    padding: 1rem;
+    border-radius: 1rem;
+}
+
+.newbtn{
+    width: 100%;
 }
