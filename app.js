@@ -10,6 +10,8 @@ const Employee = require('./models/employee')
 const wrapAsync = require('./utils/wrapAsync');
 const ExpressError = require('./utils/ExpressError');
 const methodOverride = require('method-override');
+const session = require('express-session');
+
 
 main()
     .then(console.log('database connection created successfully!'))
@@ -28,10 +30,26 @@ app.set('view engine','ejs');
 app.set('views', path.join(__dirname, 'views'));
 app.use(methodOverride('_method'));
 
+// session 
+const sessionOptions = {
+  secret:process.env.SECRETCODE,
+  resave: false,
+  saveUninitialized: true,
+  cookie: {
+    expires: Date.now() + 1000 * 60 * 60 * 24 * 7,
+    maxAge: 1000 * 60 * 60 * 24 * 7,
+    httpOnly:true 
+   }
+}
+
+app.use(session(sessionOptions));
+
+// Dashboard
 app.get('/dashboard',wrapAsync(async (req,res)=>{
     const count = await Employee.countDocuments();
     res.render('./employeeDetails/dashboard.ejs',{ employeeCount: count });
 }));
+
 
 // manage employee 
 
