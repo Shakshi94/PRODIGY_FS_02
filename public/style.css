@@ -6,6 +6,15 @@ body {
     overflow-x: hidden;
 }
 
+.dashboard{
+    border: 2px solid #6610f2;
+    width: 30% !important;
+    height: 100px;
+    padding-top: 2rem !important;
+    text-align: center;
+    font-weight: bold;
+}
+
 .container {
     flex: 1;
 }
