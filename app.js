@@ -11,7 +11,9 @@ const wrapAsync = require('./utils/wrapAsync');
 const ExpressError = require('./utils/ExpressError');
 const methodOverride = require('method-override');
 const session = require('express-session');
-
+const passport = require('passport');
+const  LocalStrategy = require('passport-local');
+const Admin = require('./models/admin');
 
 main()
     .then(console.log('database connection created successfully!'))
@@ -22,8 +24,7 @@ async function main(){
     
 }
 
-app.engine('ejs',engine)
-;
+app.engine('ejs',engine);
 app.use(express.urlencoded({extended:true}));
 app.use(express.static('public'));
 app.set('view engine','ejs');
@@ -43,6 +44,18 @@ const sessionOptions = {
 }
 
 app.use(session(sessionOptions));
+
+app.use(passport.initialize());
+app.use(passport.session());
+
+passport.use(new LocalStrategy(Admin.authenticate()));
+passport.serializeUser(Admin.serializeUser());
+passport.deserializeUser(Admin.deserializeUser());
+
+app.use((req, res, next) => {
+    res.locals.currAdmin = req.user;
+    next();
+});
 
 // Dashboard
 app.get('/dashboard',wrapAsync(async (req,res)=>{
@@ -98,6 +111,45 @@ app.delete('/members/:id',wrapAsync(async (req,res)=>{
         await Employee.findByIdAndDelete(id);
         res.redirect('/members');
 }));
+
+// signup 
+app.get('/signup', (req, res) => {
+    res.render('./admin/signup.ejs');
+});
+
+app.post('/signup',wrapAsync( async (req,res)=>{
+    const {name , email,username , password} = req.body;
+    const newAdmin = new Admin({
+       name:name,
+       email:email,
+       username:username,
+    });
+     req.login(registeredAdmin, err => {
+        if (err) return next(err);
+        res.redirect('/dashboard');
+    });
+}));
+
+// // login in 
+
+app.get('/login',(req,res)=>{
+    res.render('./admin/login.ejs');
+});
+
+app.post('/login',passport.authenticate('local',{failureRedirect:'/login'}),async (req,res)=>{
+    res.redirect('/dashboard');
+})
+
+app.get('/logout',(req,res,next)=>{
+    req.logout((err)=>{
+        if(err){
+           return next(err);
+        }
+        res.redirect('/login');
+    })
+})
+
+
 
 app.all('*',(req,res,next)=>{
   next(new ExpressError(404,'Page Not Found'));

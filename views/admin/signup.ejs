@@ -1,0 +1,44 @@
+<% layout('layouts/boilerplate') -%>
+<div class="row mt-3 offset-3">
+<form action="/signup" method="POST" class="signup-form  needs-validation" novalidate>
+    <div class=" col  form-group">
+    <label for="name">Name </label>
+    <input type="text" class="form-control" id="name" placeholder="Enter name" name="name" required>
+     <div class="valid-feedback">
+      Name looks good!
+    </div>
+     <div class="invalid-feedback">
+      write name
+    </div>
+  </div>
+
+  <div class=" col mt-3 form-group">
+    <label for="username">username</label>
+    <input type="text" class="form-control" id="username" placeholder="username" name="username" required>
+    <div class="valid-feedback">
+        username looks good!
+    </div>
+    <div class="invalid-feedback">
+        Please write unique username.
+    </div>
+  </div>
+
+  <div class=" col mt-3 form-group">
+    <label for="email">Email </label>
+    <input type="email" class="form-control" id="email" placeholder="Enter email" name="email" required>
+      <div class="invalid-feedback">
+        Please write unique email.
+    </div>
+  </div>
+  <div class=" col mt-3 form-group">
+    <label for="password">Password</label>
+    <input type="password" class="form-control" id="password" placeholder="Password" name="password" required>
+     <div class="invalid-feedback">
+       write unique password of atleast 8 charcters!
+    </div>
+  </div>
+  <button type="submit" class="btn signup-btn mt-3 ">Sign Up</button>
+ 
+</form>
+</div>
+<script src="./js/script.js"></script>    

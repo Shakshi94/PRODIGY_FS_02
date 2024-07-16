@@ -13,6 +13,7 @@ body {
     padding-top: 2rem !important;
     text-align: center;
     font-weight: bold;
+    background-color: rgb(131, 19, 211);
 }
 
 .container {
@@ -38,6 +39,21 @@ body {
     background-color: rgb(206, 206, 206, 0.3);
     border-radius: 2rem;
 }  
+@media (max-width: 768px) {
+
+    .navbar-nav .nav-link {
+        color: black !important; /* Link color */
+        text-align: left; /* Align text to the left */
+        padding-left: 1rem; /* Add padding to the left */
+        font-weight: bold;
+    }
+    .navbar-nav {
+
+        margin-top: 2rem;
+        background-color: rgb(162, 102, 204); /* Background color for the collapsed menu */
+
+    }
+}
 
 .heading{
     background-color: #6610f2 !important;
@@ -96,4 +112,28 @@ hr{
     color: white !important;
     background-color: #6610f2 !important;
     width: 100%;
+}
+
+.signup-form{
+     border: 2px solid #6610f2;
+    padding: 1rem;
+    border-radius: 1rem;
+    width: 500px !important;
+}
+
+.signup-form label{
+     font-weight: bold;
+}
+
+.signup-btn{
+      color: white !important;
+    background-color: #6610f2 !important;
+    width: 100%;
+}
+
+.login-a{
+    display: flex !important;
+    justify-content: center !important;
+    text-decoration: none;
+    font-weight: bold;
 }
