@@ -2,16 +2,22 @@ module.exports.isLoggedIn = (req,res,next) => {
      if(! req.isAuthenticated()){
        //redirectUrl 
        req.session.redirectUrl = req.originalUrl;
-       req.flash("error","you must be Admin to logged in for creating new employee ! ");
+       req.flash("error","Admin must be logged In ");
        return  res.redirect("/login");
    }
    next();
 }
 
 module.exports.saveRedirectUrl = (req,res,next) =>{
-  if( req.session.redirectUrl ){
-    res.locals.redirectUrl = req.session.redirectUrl ;
-  }
+ if (!req.session.returnTo && req.headers.referer) {
+        req.session.returnTo = req.headers.referer;
+    }
+    next();
+}
 
-  next();
+module.exports.checkNotAuthenticated = (req, res, next) => {
+    if (req.isAuthenticated()) {
+        return res.redirect('/dashboard');
+    }
+    next();
 }

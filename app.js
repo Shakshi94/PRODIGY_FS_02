@@ -15,7 +15,7 @@ const flash = require('connect-flash');
 const passport = require('passport');
 const  LocalStrategy = require('passport-local');
 const Admin = require('./models/admin');
-const {isLoggedIn,saveRedirectUrl }= require('./middleware');
+const {isLoggedIn,saveRedirectUrl,checkNotAuthenticated }= require('./middleware');
 
 main()
     .then(console.log('database connection created successfully!'))
@@ -64,7 +64,7 @@ app.use((req, res, next) => {
 });
 
 // Dashboard
-app.get('/dashboard',wrapAsync(async (req,res)=>{
+app.get('/dashboard',isLoggedIn,wrapAsync(async (req,res)=>{
     const count = await Employee.countDocuments();
     res.render('./employeeDetails/dashboard.ejs',{ employeeCount: count });
 }));
@@ -72,13 +72,13 @@ app.get('/dashboard',wrapAsync(async (req,res)=>{
 
 // manage employee 
 
-app.get('/members',wrapAsync(async (req,res)=>{
+app.get('/members',isLoggedIn,wrapAsync(async (req,res)=>{
     let employees = await Employee.find({});
     res.render('./employeeDetails/members.ejs',{employees});
 }));
 
 // show employee 
-app.get('/members/:id',wrapAsync(async (req,res)=>{
+app.get('/members/:id',isLoggedIn,wrapAsync(async (req,res)=>{
     let {id} = req.params;
     let member= await Employee.findById(id);
     if(!member){
@@ -90,7 +90,7 @@ app.get('/members/:id',wrapAsync(async (req,res)=>{
 }));
 
 // create new employee
-app.get('/newEmployee',(req,res)=>{
+app.get('/newEmployee',isLoggedIn,(req,res)=>{
   res.render('./employeeDetails/newmember.ejs');
 });
 
@@ -104,13 +104,13 @@ app.post('/newEmployee',isLoggedIn,wrapAsync(async(req,res)=>{
 
 // edit employee
 
-app.get('/members/:id/edit',wrapAsync(async(req,res)=>{
+app.get('/members/:id/edit',isLoggedIn,wrapAsync(async(req,res)=>{
     let {id} = req.params;
     const employee = await Employee.findById(id);
     res.render('./employeeDetails/edit.ejs',{employee});
 }));
 
-app.put('/members/:id',wrapAsync(async(req,res)=>{
+app.put('/members/:id',isLoggedIn,wrapAsync(async(req,res)=>{
     let {id} = req.params;
     let employee = await Employee.findByIdAndUpdate(id,{...req.body.employees});
     await employee.save();
@@ -118,7 +118,7 @@ app.put('/members/:id',wrapAsync(async(req,res)=>{
     res.redirect(`/members/${id}`);
 }));
 
-app.delete('/members/:id',wrapAsync(async (req,res)=>{
+app.delete('/members/:id',isLoggedIn,wrapAsync(async (req,res)=>{
         let {id} = req.params;
         await Employee.findByIdAndDelete(id);
         req.flash('success','employee deleted!')
@@ -126,11 +126,11 @@ app.delete('/members/:id',wrapAsync(async (req,res)=>{
 }));
 
 // signup 
-app.get('/signup', (req, res) => {
+app.get('/signup',checkNotAuthenticated, (req, res) => {
     res.render('./admin/signup.ejs');
 });
 
-app.post('/signup',async (req, res, next) => {
+app.post('/signup',checkNotAuthenticated,async (req, res, next) => {
 
     try{
     const { name, email, username, password } = req.body; // Assuming the form fields are named correctly
@@ -159,11 +159,11 @@ app.post('/signup',async (req, res, next) => {
 
 // // login in 
 
-app.get('/login',(req,res)=>{
+app.get('/login',checkNotAuthenticated,(req,res)=>{
     res.render('./admin/login.ejs');
 });
 
-app.post('/login',saveRedirectUrl,passport.authenticate('local',{failureRedirect:'/login',failureFlash:true}),async (req,res)=>{
+app.post('/login',checkNotAuthenticated,saveRedirectUrl,passport.authenticate('local',{failureRedirect:'/login',failureFlash:true}),async (req,res)=>{
     req.flash('success','Welcome to WorkWave,you are login!');
     let redirectUrl = res.locals.redirectUrl || '/dashboard';
     res.redirect(redirectUrl);

@@ -1,0 +1,57 @@
+<aside id="sidebar">
+    <div class="d-flex">
+        <button class="toggle-btn" type="button">
+            <i class="lni lni-grid-alt"></i>
+        </button>
+        <div class="sidebar-logo">
+            <a href="/dashboard">WorkWave</a>
+        </div>
+    </div>
+    <ul class="sidebar-nav">
+        <% if (currAdmin) { %>
+            <li class="sidebar-item">
+                <a href="/dashboard" class="sidebar-link">
+                    <i class="lni lni-dashboard"></i>
+                    <span>Dashboard</span>
+                </a>
+            </li>
+            <li class="sidebar-item">
+                <a href="/members" class="sidebar-link">
+                    <i class="lni lni-users"></i>
+                    <span>Manage Employees</span>
+                </a>
+            </li>
+            <li class="sidebar-item">
+                <a href="/newEmployee" class="sidebar-link">
+                    <i class="lni lni-user"></i>
+                    <span>New Employee</span>
+                </a>
+            </li>
+            <li class="sidebar-item">
+                <a href="#" class="sidebar-link">
+                    <i class="lni lni-popup"></i>
+                    <span>Profile</span>
+                </a>
+            </li>
+            <li class="sidebar-item">
+                    <a href="/logout" class="sidebar-link">
+                        <i class="lni lni-exit"></i>
+                        <span>Logout</span>
+                    </a>    
+            </li>
+        <% } else { %>
+            <li class="sidebar-item">
+                <a href="/signup" class="sidebar-link">
+                    <i class="lni lni-user"></i>
+                    <span>Sign Up</span>
+                </a>
+            </li>
+            <li class="sidebar-item">
+                <a href="/login" class="sidebar-link">
+                    <i class="lni lni-protection"></i>
+                    <span>Log In</span>
+                </a>
+            </li>
+        <% } %>
+    </ul>
+</aside>
