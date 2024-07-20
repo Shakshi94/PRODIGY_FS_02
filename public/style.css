@@ -138,3 +138,15 @@ hr{
     font-weight: bold;
 }
 /* signup and login page */
+
+.alert{
+    background-color: 	#6cc070 !important;
+    color: white !important;
+    font-weight: bold !important;
+}
+
+.alert-danger{
+    background-color: #ff3333 !important;
+    color: white !important;
+    font-weight: bold;
+}
