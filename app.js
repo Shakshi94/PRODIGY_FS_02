@@ -11,9 +11,11 @@ const wrapAsync = require('./utils/wrapAsync');
 const ExpressError = require('./utils/ExpressError');
 const methodOverride = require('method-override');
 const session = require('express-session');
+const flash = require('connect-flash');
 const passport = require('passport');
 const  LocalStrategy = require('passport-local');
 const Admin = require('./models/admin');
+const {isLoggedIn,saveRedirectUrl }= require('./middleware');
 
 main()
     .then(console.log('database connection created successfully!'))
@@ -44,7 +46,7 @@ const sessionOptions = {
 }
 
 app.use(session(sessionOptions));
-
+app.use(flash());
 app.use(passport.initialize());
 app.use(passport.session());
 
@@ -53,6 +55,8 @@ passport.serializeUser(Admin.serializeUser());
 passport.deserializeUser(Admin.deserializeUser());
 
 app.use((req, res, next) => {
+    res.locals.message = req.flash("success");
+    res.locals.errorMsg = req.flash("error");
     res.locals.currAdmin = req.user;
     next();
 });
@@ -84,7 +88,7 @@ app.get('/newEmployee',(req,res)=>{
   res.render('./employeeDetails/newmember.ejs');
 });
 
-app.post('/newEmployee',wrapAsync(async(req,res)=>{
+app.post('/newEmployee',isLoggedIn,wrapAsync(async(req,res)=>{
      const newEmployee = new Employee(req.body.employees);
      
      await newEmployee.save();
@@ -117,18 +121,31 @@ app.get('/signup', (req, res) => {
     res.render('./admin/signup.ejs');
 });
 
-app.post('/signup',wrapAsync( async (req,res)=>{
-    const {name , email,username , password} = req.body;
+app.post('/signup', wrapAsync(async (req, res, next) => {
+
+    try{
+    const { name, email, username, password } = req.body; // Assuming the form fields are named correctly
     const newAdmin = new Admin({
-       name:name,
-       email:email,
-       username:username,
+        name: name,
+        email: email,
+        username: username,
     });
-     req.login(registeredAdmin, err => {
-        if (err) return next(err);
+
+    const registeredAdmin = await Admin.register(newAdmin, password);
+    
+    req.login(registeredAdmin, (err) => {
+        if (err) {
+            return next(err);
+        }
+        req.flash('success','Welcome to WorkWave');
         res.redirect('/dashboard');
     });
+   }catch(e){
+    req.flash('error',e.message);
+    res.redirect('/signup');
+   }
 }));
+
 
 // // login in 
 
@@ -136,15 +153,18 @@ app.get('/login',(req,res)=>{
     res.render('./admin/login.ejs');
 });
 
-app.post('/login',passport.authenticate('local',{failureRedirect:'/login'}),async (req,res)=>{
+app.post('/login',saveRedirectUrl,passport.authenticate('local',{failureRedirect:'/login',failureFlash:true}),async (req,res)=>{
+    req.flash('success','Welcome to WorkWave,you are login!');
+    let redirectUrl = res.locals.redirectUrl || '/dashboard';
     res.redirect('/dashboard');
 })
 
 app.get('/logout',(req,res,next)=>{
     req.logout((err)=>{
         if(err){
-           return next(err);
+           return next();
         }
+        req.flash('success','you are logged out !')
         res.redirect('/login');
     })
 })
