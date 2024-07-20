@@ -1,11 +1,13 @@
 <aside id="sidebar">
-    <div class="d-flex">
+    <div class="d-flex mt-3">
         <button class="toggle-btn" type="button">
             <i class="lni lni-grid-alt"></i>
         </button>
+        <%if(currAdmin){%>
         <div class="sidebar-logo">
-            <a href="/dashboard">WorkWave</a>
+            <a href="/dashboard"><%=currAdmin.name%></a>
         </div>
+         <%}%>
     </div>
     <ul class="sidebar-nav">
         <% if (currAdmin) { %>

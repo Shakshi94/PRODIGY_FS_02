@@ -16,14 +16,14 @@ body {
     margin: 0;
     padding: 0;
 }
+a{
+   text-decoration: none !important;  
+}
 
-a {
+li a {
     text-decoration: none;
 }
 
-li {
-    list-style: none;
-}
 
 h1 {
     font-weight: 600;
@@ -49,6 +49,7 @@ h1 {
     z-index: 1000;
     transition: all .25s ease-in-out;
     background-color: #0e2238;
+    font-weight: bold;
     display: flex;
     flex-direction: column;
 }
@@ -150,18 +151,34 @@ a.sidebar-link:hover {
 
 
 .dashboard{
-    border: 2px solid #6610f2;
+    border: 2px solid black;
     width: 30% !important;
-    height: 100px;
+    height: 150px;
     padding-top: 2rem !important;
     text-align: center;
     font-weight: bold;
-    background-color: rgb(131, 19, 211);
+    background-color: #0e2238;
+    color: white;
+}
+/*navbar  */
+nav{
+  border-bottom: 2px solid black ;
+}
+.container-fluid{
+    display: flex !important;
+    justify-content: center !important ;
+    align-items: center !important;
+}
+.navbar-brand{
+    font-weight: bolder;
 }
 
+.table-heading{
+    background-color: #0e2238 !important;
+}
 
-.heading{
-    background-color: #6610f2 !important;
+.table-heading th{
+    color: white !important;
 }
 
 .employeeImage{
@@ -171,10 +188,10 @@ a.sidebar-link:hover {
 }
 
 .card{
-    border:2px solid #6610f2 !important;
+    border:2px solid #0e2238 !important;
 }
 .card-title,.card-subtitle {
-    color: #6610f2 !important;
+    color: #0e2238 !important;
     font-weight: bold;
 }
 .card-body{
@@ -183,18 +200,18 @@ a.sidebar-link:hover {
    
 }
 
-hr{
-    border: 3px solid #6610f2 !important;
+.showhr{
+    border: 3px solid #0e2238 !important;
 }
 
 .highlights{
-    color: #6610f2;
+    color:#0e2238;
     font-weight: bold;
 }
 
 .btn-edit,.btn-delete{
    color: white !important;
-   background-color: #6610f2 !important;
+   background-color: #0e2238 !important;
 }
 
 .btns{
@@ -208,19 +225,19 @@ hr{
 }
 
 .newEmployeeForm{
-    border: 2px solid #6610f2;
+    border: 2px solid #0e2238;
     padding: 1rem;
     border-radius: 1rem;
 }
 
 .newbtn{
     color: white !important;
-    background-color: #6610f2 !important;
+    background-color: #0e2238 !important;
     width: 100%;
 }
 
 .signup-form{
-     border: 2px solid #6610f2;
+     border: 2px solid #0e2238;
     padding: 1rem;
     border-radius: 1rem;
     width: 500px !important;
@@ -232,7 +249,7 @@ hr{
 
 .signup-btn{
       color: white !important;
-    background-color: #6610f2 !important;
+    background-color: #0e2238 !important;
     width: 100%;
 }
 
@@ -245,13 +262,13 @@ hr{
 /* signup and login page */
 
 .alert{
-    background-color: 	#6cc070 !important;
+    background-color: #22bb33!important;
     color: white !important;
     font-weight: bold !important;
 }
 
 .alert-danger{
-    background-color: #ff3333 !important;
+    background-color: #bb2124	 !important;
     color: white !important;
     font-weight: bold;
 }

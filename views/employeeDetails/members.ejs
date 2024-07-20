@@ -4,7 +4,7 @@
 </div>
 <table class="table table-bordered  table-hover">
     <thead>
-    <tr class="heading">
+    <tr class="table-heading">
         <th scope="col" >Name</th>
         <th scope="col">Position</th>
         <th scope="col">Department</th>
@@ -23,7 +23,7 @@
           <td><%= emp.phone %></td>
          <td>&#8377; &nbsp;<%= Number(emp.salary).toLocaleString("en-IN") %></td>
          <td>
-            <a href="/members/<%= emp.id%>"><button  class="btn"><i class="fa-regular fa-eye" style="color: #B197FC;"></i></button></a>
+            <a href="/members/<%= emp.id%>"><button  class="btn"><i class="fa-regular fa-eye" style="color: #0e2238"></i></button></a>
          </td>
        </tr>
    <% } %>

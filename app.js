@@ -65,8 +65,21 @@ app.use((req, res, next) => {
 
 // Dashboard
 app.get('/dashboard',isLoggedIn,wrapAsync(async (req,res)=>{
-    const count = await Employee.countDocuments();
-    res.render('./employeeDetails/dashboard.ejs',{ employeeCount: count });
+    const employeeCount = await Employee.countDocuments();
+    const adminCount = await Admin.countDocuments();
+    // Aggregation to calculate the total salary
+const totalSalaryAggregation = await Employee.aggregate([
+        {
+            $group: {
+                _id: null,
+                totalSalary: { $sum: { $toDouble: "$salary" } } // Convert salary to double
+            }
+        }
+    ]);
+
+    // Get the total salary from the aggregation result
+    const totalSalary = totalSalaryAggregation.length > 0 ? totalSalaryAggregation[0].totalSalary : 0;
+    res.render('./employeeDetails/dashboard.ejs',{ employeeCount, adminCount,totalSalary });
 }));
 
 

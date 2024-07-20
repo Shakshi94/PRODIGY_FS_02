@@ -4,13 +4,13 @@
   <div class="card-body ">
     <h5 class="card-title offset-4"><%=member.name%></h5>
     <h6 class="card-subtitle mb-2 text-muted offset-4"><%=member.position%></h6>
-    <hr>
+    <hr class="showhr">
      <div class="member-details offset-1 mt-1 mb-1"><span class="highlights">Department:</span><%=member.department%></div>
      <div  class="member-details offset-1 mt-1 mb-1"><span class="highlights">Age:</span> <%=member.age%></div>
      <div class="offset-1 mt-1 mb-1"><span class="highlights">Hiredate: </span class="highlights"><%=member.hireDate%></div>
      <div class="offset-1 mt-1 mb-1"><span class="highlights">Salary: </span>&#8377; &nbsp;<%= Number(member.salary).toLocaleString("en-IN")%> </div>
-     <div class="offset-1 mt-1 mb-1"><i class="fa-solid fa-at" style="color:  #6610f2;"></i>&nbsp;&nbsp;<%=member.email%></div>
-     <div class="offset-1 mt-1 mb-1"><i class="fa-solid fa-phone" style="color:  #6610f2;"></i>&nbsp;&nbsp;<%=member.phone%></div>
+     <div class="offset-1 mt-1 mb-1"><i class="fa-solid fa-at" style="color:  #0e2238;"></i>&nbsp;&nbsp;<%=member.email%></div>
+     <div class="offset-1 mt-1 mb-1"><i class="fa-solid fa-phone" style="color:  #0e2238;"></i>&nbsp;&nbsp;<%=member.phone%></div>
      <div class="btns mt-1">
         <a href="/members/<%= member.id%>/edit"><button class="btn btn-edit">Edit</button></a>
         <form action="/members/<%= member.id%>?_method=DELETE"  method="POST">
