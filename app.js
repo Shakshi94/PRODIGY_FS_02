@@ -26,13 +26,6 @@ async function main(){
     
 }
 
-app.engine('ejs',engine);
-app.use(express.urlencoded({extended:true}));
-app.use(express.static('public'));
-app.set('view engine','ejs');
-app.set('views', path.join(__dirname, 'views'));
-app.use(methodOverride('_method'));
-
 // session 
 const sessionOptions = {
   secret:process.env.SECRETCODE,
@@ -44,6 +37,15 @@ const sessionOptions = {
     httpOnly:true 
    }
 }
+
+app.engine('ejs',engine);
+app.use(express.static('public'));
+app.set('view engine','ejs');
+
+app.use(express.urlencoded({extended:true}));
+app.set('views', path.join(__dirname, 'views'));
+app.use(methodOverride('_method'));
+
 
 app.use(session(sessionOptions));
 app.use(flash());
@@ -79,6 +81,10 @@ app.get('/members',wrapAsync(async (req,res)=>{
 app.get('/members/:id',wrapAsync(async (req,res)=>{
     let {id} = req.params;
     let member= await Employee.findById(id);
+    if(!member){
+        req.flash('error','employee you are requesting does not exist!')
+        return res.redirect('/dashboard');
+    }
     res.render('./employeeDetails/showmember.ejs',{member})
     
 }));
@@ -92,6 +98,7 @@ app.post('/newEmployee',isLoggedIn,wrapAsync(async(req,res)=>{
      const newEmployee = new Employee(req.body.employees);
      
      await newEmployee.save();
+     req.flash('success','new employee is added!')
      res.redirect('/members');
 }));
 
@@ -107,12 +114,14 @@ app.put('/members/:id',wrapAsync(async(req,res)=>{
     let {id} = req.params;
     let employee = await Employee.findByIdAndUpdate(id,{...req.body.employees});
     await employee.save();
+    req.flash('success','employee is updated!')
     res.redirect(`/members/${id}`);
 }));
 
 app.delete('/members/:id',wrapAsync(async (req,res)=>{
         let {id} = req.params;
         await Employee.findByIdAndDelete(id);
+        req.flash('success','employee deleted!')
         res.redirect('/members');
 }));
 
@@ -121,7 +130,7 @@ app.get('/signup', (req, res) => {
     res.render('./admin/signup.ejs');
 });
 
-app.post('/signup', wrapAsync(async (req, res, next) => {
+app.post('/signup',async (req, res, next) => {
 
     try{
     const { name, email, username, password } = req.body; // Assuming the form fields are named correctly
@@ -137,14 +146,15 @@ app.post('/signup', wrapAsync(async (req, res, next) => {
         if (err) {
             return next(err);
         }
-        req.flash('success','Welcome to WorkWave');
+        req.flash('success','Welcome to WorkWave!');
         res.redirect('/dashboard');
     });
+
    }catch(e){
     req.flash('error',e.message);
     res.redirect('/signup');
    }
-}));
+});
 
 
 // // login in 
@@ -156,7 +166,7 @@ app.get('/login',(req,res)=>{
 app.post('/login',saveRedirectUrl,passport.authenticate('local',{failureRedirect:'/login',failureFlash:true}),async (req,res)=>{
     req.flash('success','Welcome to WorkWave,you are login!');
     let redirectUrl = res.locals.redirectUrl || '/dashboard';
-    res.redirect('/dashboard');
+    res.redirect(redirectUrl);
 })
 
 app.get('/logout',(req,res,next)=>{
