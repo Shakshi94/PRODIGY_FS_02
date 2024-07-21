@@ -21,3 +21,27 @@
         <p>Total: &#8377; <%= totalSalary.toLocaleString("en-IN") %></p>
         </div>
 </div>
+
+<hr>
+
+<div class="row offset-5 mt-3 mb-3">
+    <h3>List of Admins</h3>
+</div>
+<table class="table table-bordered  table-hover">
+    <thead>
+    <tr class="table-heading">
+        <th scope="col" >Name</th>
+        <th scope="col">email</th> 
+        <th scope="col">Phone No.</th>     
+    </tr>
+    </thead>
+    <tbody>
+    <% for(admin of admins){%>
+       <tr>
+        <td ><%= admin.name %></td>
+         <td ><%= admin.email%></td>
+         <td ><%= admin.phone%></td>
+       </tr>
+   <% } %>
+</tbody>
+</table>

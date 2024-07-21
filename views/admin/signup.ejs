@@ -1,4 +1,8 @@
 <% layout('layouts/boilerplate') -%>
+<div class="row offset-5 mt-3 mb-3">
+    <h3>Sign Up</h3>
+</div>
+
 <div class="row mt-3 offset-3">
 <form action="/signup" method="POST" class="signup-form  needs-validation" novalidate>
     <div class=" col  form-group">
@@ -30,6 +34,23 @@
         Please write unique email.
     </div>
   </div>
+
+   <div class=" col mt-3 form-group">
+    <label for="phone">Phone </label>
+    <input type="string" class="form-control" id="phone" placeholder="Enter Phone no." name="phone" required>
+      <div class="invalid-feedback">
+        Please write phone number.
+    </div>
+  </div>
+
+   <div class=" col mt-3 form-group">
+    <label for="address">Address </label>
+    <textarea type="text" class="form-control" id="address" placeholder="Enter address" name="address" rows="4" cols="10" required></textarea>
+      <div class="invalid-feedback">
+        Please write address.
+    </div>
+  </div>
+
   <div class=" col mt-3 form-group">
     <label for="password">Password</label>
     <input type="password" class="form-control" id="password" placeholder="Password" name="password" required>

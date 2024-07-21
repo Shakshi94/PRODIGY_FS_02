@@ -67,6 +67,7 @@ app.use((req, res, next) => {
 app.get('/dashboard',isLoggedIn,wrapAsync(async (req,res)=>{
     const employeeCount = await Employee.countDocuments();
     const adminCount = await Admin.countDocuments();
+    const admins = await Admin.find({});
     // Aggregation to calculate the total salary
 const totalSalaryAggregation = await Employee.aggregate([
         {
@@ -79,7 +80,7 @@ const totalSalaryAggregation = await Employee.aggregate([
 
     // Get the total salary from the aggregation result
     const totalSalary = totalSalaryAggregation.length > 0 ? totalSalaryAggregation[0].totalSalary : 0;
-    res.render('./employeeDetails/dashboard.ejs',{ employeeCount, adminCount,totalSalary });
+    res.render('./employeeDetails/dashboard.ejs',{ employeeCount, adminCount,totalSalary,admins });
 }));
 
 
@@ -88,6 +89,12 @@ const totalSalaryAggregation = await Employee.aggregate([
 app.get('/members',isLoggedIn,wrapAsync(async (req,res)=>{
     let employees = await Employee.find({});
     res.render('./employeeDetails/members.ejs',{employees});
+}));
+
+//
+
+app.get('/profile',isLoggedIn,wrapAsync(async(req,res)=>{
+     res.render('./admin/profile.ejs');       
 }));
 
 // show employee 
@@ -146,11 +153,13 @@ app.get('/signup',checkNotAuthenticated, (req, res) => {
 app.post('/signup',checkNotAuthenticated,async (req, res, next) => {
 
     try{
-    const { name, email, username, password } = req.body; // Assuming the form fields are named correctly
+    const { name, email,phone,address,username, password } = req.body; // Assuming the form fields are named correctly
     const newAdmin = new Admin({
         name: name,
         email: email,
         username: username,
+        address:address,
+        phone:phone,
     });
 
     const registeredAdmin = await Admin.register(newAdmin, password);
@@ -159,7 +168,7 @@ app.post('/signup',checkNotAuthenticated,async (req, res, next) => {
         if (err) {
             return next(err);
         }
-        req.flash('success','Welcome to WorkWave!');
+        req.flash('success','Welcome to Employee Managment System!');
         res.redirect('/dashboard');
     });
 
@@ -177,7 +186,7 @@ app.get('/login',checkNotAuthenticated,(req,res)=>{
 });
 
 app.post('/login',checkNotAuthenticated,saveRedirectUrl,passport.authenticate('local',{failureRedirect:'/login',failureFlash:true}),async (req,res)=>{
-    req.flash('success','Welcome to WorkWave,you are login!');
+    req.flash('success','Welcome to Employee Managment System,you are login!');
     let redirectUrl = res.locals.redirectUrl || '/dashboard';
     res.redirect(redirectUrl);
 })
