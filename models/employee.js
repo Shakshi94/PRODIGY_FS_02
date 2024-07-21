@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 const { Schema } = mongoose;
-
+const Admin = require('./admin.js');
 const employeeSchema =new mongoose.Schema({
     name:{
         type:String,
@@ -38,7 +38,12 @@ const employeeSchema =new mongoose.Schema({
     salary:{
         type:String,
         required:true,
-    }
+    }, 
+    owner:{
+        type: Schema.Types.ObjectId,
+        ref: "Admin",
+    },
+    
 });
 
 const Employee = new mongoose.model('Employee',employeeSchema);

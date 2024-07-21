@@ -68,17 +68,15 @@ app.get('/dashboard',isLoggedIn,wrapAsync(async (req,res)=>{
     const employeeCount = await Employee.countDocuments();
     const adminCount = await Admin.countDocuments();
     const admins = await Admin.find({});
-    // Aggregation to calculate the total salary
 const totalSalaryAggregation = await Employee.aggregate([
         {
             $group: {
                 _id: null,
-                totalSalary: { $sum: { $toDouble: "$salary" } } // Convert salary to double
+                totalSalary: { $sum: { $toDouble: "$salary" } } 
             }
         }
     ]);
 
-    // Get the total salary from the aggregation result
     const totalSalary = totalSalaryAggregation.length > 0 ? totalSalaryAggregation[0].totalSalary : 0;
     res.render('./employeeDetails/dashboard.ejs',{ employeeCount, adminCount,totalSalary,admins });
 }));
@@ -98,16 +96,19 @@ app.get('/profile',isLoggedIn,wrapAsync(async(req,res)=>{
 }));
 
 // show employee 
-app.get('/members/:id',isLoggedIn,wrapAsync(async (req,res)=>{
-    let {id} = req.params;
-    let member= await Employee.findById(id);
-    if(!member){
-        req.flash('error','employee you are requesting does not exist!')
-        return res.redirect('/dashboard');
-    }
-    res.render('./employeeDetails/showmember.ejs',{member})
-    
+app.get('/members/:id', isLoggedIn, wrapAsync(async (req, res) => {
+  let { id } = req.params;
+  let currAdmin = req.user;
+  let member = await Employee.findById(id).populate('owner');
+  
+  if (!member) {
+    req.flash('error', 'Employee you are requesting does not exist!');
+    return res.redirect('/dashboard');
+  }
+  
+  res.render('./employeeDetails/showmember.ejs', { member, currAdmin });
 }));
+
 
 // create new employee
 app.get('/newEmployee',isLoggedIn,(req,res)=>{
@@ -115,7 +116,7 @@ app.get('/newEmployee',isLoggedIn,(req,res)=>{
 });
 
 app.post('/newEmployee',isLoggedIn,wrapAsync(async(req,res)=>{
-     const newEmployee = new Employee(req.body.employees);
+     const newEmployee = new Employee({...req.body.employees,owner: req.user._id});
      
      await newEmployee.save();
      req.flash('success','new employee is added!')
@@ -153,7 +154,7 @@ app.get('/signup',checkNotAuthenticated, (req, res) => {
 app.post('/signup',checkNotAuthenticated,async (req, res, next) => {
 
     try{
-    const { name, email,phone,address,username, password } = req.body; // Assuming the form fields are named correctly
+    const { name, email,phone,address,username, password } = req.body; 
     const newAdmin = new Admin({
         name: name,
         email: email,

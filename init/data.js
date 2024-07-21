@@ -8,7 +8,8 @@ let SamplingData = [
     phone: "9123456789",
     hireDate: "2022-01-15",
     salary: "70000",
-    imageUrl: "https://randomuser.me/api/portraits/men/1.jpg"
+    imageUrl: "https://randomuser.me/api/portraits/men/1.jpg",
+    owner: '669cc32bf667ecd657586c92'
   },
   {
     name: "Priya Singh",
@@ -19,7 +20,8 @@ let SamplingData = [
     phone: "9876543210",
     hireDate: "2021-06-23",
     salary: "65000",
-    imageUrl: "https://randomuser.me/api/portraits/women/1.jpg"
+    imageUrl: "https://randomuser.me/api/portraits/women/1.jpg",
+    owner: '669cc32bf667ecd657586c92'
   },
   {
     name: "Vikram Patel",
@@ -30,7 +32,8 @@ let SamplingData = [
     phone: "9988776655",
     hireDate: "2020-03-10",
     salary: "90000",
-    imageUrl: "https://randomuser.me/api/portraits/men/2.jpg"
+    imageUrl: "https://randomuser.me/api/portraits/men/2.jpg",
+    owner: '669cc32bf667ecd657586c92'
   },
   {
     name: "Anjali Mehta",
@@ -41,7 +44,8 @@ let SamplingData = [
     phone: "9123456780",
     hireDate: "2021-08-12",
     salary: "60000",
-    imageUrl: "https://randomuser.me/api/portraits/women/2.jpg"
+    imageUrl: "https://randomuser.me/api/portraits/women/2.jpg",
+    owner: '669cc32bf667ecd657586c92'
   },
 ];
 

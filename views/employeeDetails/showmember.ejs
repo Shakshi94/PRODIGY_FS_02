@@ -12,10 +12,12 @@
      <div class="offset-1 mt-1 mb-1"><i class="fa-solid fa-at" style="color:  #0e2238;"></i>&nbsp;&nbsp;<%=member.email%></div>
      <div class="offset-1 mt-1 mb-1"><i class="fa-solid fa-phone" style="color:  #0e2238;"></i>&nbsp;&nbsp;<%=member.phone%></div>
      <div class="btns mt-1">
+       <% if (currAdmin && currAdmin._id && member.owner && member.owner._id && currAdmin._id.toString() === member.owner._id.toString()) { %>
         <a href="/members/<%= member.id%>/edit"><button class="btn btn-edit">Edit</button></a>
         <form action="/members/<%= member.id%>?_method=DELETE"  method="POST">
         <button type="submit" class="btn btn-delete">Delete</button>
         </form>
+         <% } %>
      </div>
   </div>
 </div>
